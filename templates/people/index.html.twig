@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}People index{% endblock %}
+
+{% block body %}
+    <h1>People index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birth_date</th>
+                <th>Death_date</th>
+                <th>Birth_place</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for person in people %}
+            <tr>
+                <td>{{ person.id }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.birthDate ? person.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ person.deathDate ? person.deathDate|date('Y-m-d') : '' }}</td>
+                <td>{{ person.birthPlace }}</td>
+                <td>
+                    <a href="{{ path('app_people_show', {'id': person.id}) }}">show</a>
+                    <a href="{{ path('app_people_edit', {'id': person.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_people_new') }}">Create new</a>
+{% endblock %}
